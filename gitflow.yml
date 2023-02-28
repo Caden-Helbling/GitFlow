@@ -1,0 +1,41 @@
+name: GitFlow Workflow
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  setup-environment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Setup Python Environment
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x.x'
+
+      - name: Install Dependencies
+        run: pip install -r requirements.txt
+
+  create-branches:
+    needs: setup-environment
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        branch:
+          - feature
+          - release
+          - hotfix
+    steps:
+      - name: Create ${matrix.branch} branch
+        run: |
+          git checkout ${GITHUB_REF#refs/heads/develop}
+          git pull
+          git checkout -b ${matrix.branch}/${{ github.run_number }}
+          git push --set-upstream origin ${matrix.branch}/${{ github.run_number }}
