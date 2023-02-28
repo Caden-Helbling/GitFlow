@@ -33,6 +33,9 @@ jobs:
           - release
           - hotfix
     steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
       - name: Create ${matrix.branch} branch
         run: |
           git checkout ${GITHUB_REF#refs/heads/develop}
