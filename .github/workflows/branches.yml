@@ -52,13 +52,16 @@ jobs:
         run: git branch ${{ github.event.inputs.branch4 }}
       - name: Push branch 4
         run: git push origin ${{ github.event.inputs.branch4 }}
+      - name: Set GITHUB_TOKEN
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
       - name: Add branch protections
         uses: octokit/request-action@v2.x
         with:
           route: PUT /repos/:owner/:repo/branches/${{ github.event.inputs.branch2 }}/protection
           headers: |
             Accept: application/vnd.github.luke-cage-preview+json
-            Authorization: ${{ secrets.TOKEN }}
+            Authorization: ${{ secrets.GITHUB_TOKEN }}
           data: |
             {
               "required_status_checks": {
