@@ -2,9 +2,6 @@ name: Create branches
 
 on:
   workflow_dispatch:
-#   push:
-#     branches:
-#       - main
     inputs:
       environment:
         description: 'Define env name'     
