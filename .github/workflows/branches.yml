@@ -27,15 +27,18 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          ref: main
+          fetch-depth: 0
       - name: Create branch A
-        run: git checkout -b branch-A
+        run: git branch branch-A
       - name: Push branch A
         run: git push origin branch-A
       - name: Create branch B
-        run: git checkout -b branch-B
+        run: git branch branch-B
       - name: Push branch B
         run: git push origin branch-B
       - name: Create branch C
-        run: git checkout -b branch-C
+        run: git branch branch-C
       - name: Push branch C
         run: git push origin branch-C
