@@ -5,24 +5,27 @@ on:
 #   push:
 #     branches:
 #       - main
+    inputs:
+#       environment:
+#         description: 'Define env name'     
+#         required: true
+#         default: 'prod'
+      branch:
+        description: 'Define branch name'     
+        required: true
+        default: 'master'
 
 jobs:
   create-branches:
     runs-on: ubuntu-latest
     steps:
-      - name: Prompt for number of branches
-        id: branch-count
-        run: |
-          echo ::set-output name=branch-count::$(read -p "Enter the number of branches to create: " && echo $REPLY)
       - name: Checkout code
         uses: actions/checkout@v2
         with:
           ref: main
           fetch-depth: 0
-      - name: Create and push branches
-        run: |
-          for i in $(seq 1 ${{ steps.branch-count.outputs.branch-count }}); do
-            branch_name=$(read -p "Enter name for branch $i: " && echo $REPLY)
-            git branch $branch_name
-            git push origin $branch_name
-          done
+      - name: Create branch 
+        run: git branch "Branch: ${{ github.event.inputs.branch }}"
+      - name: Push branch A
+        run: git push origin "Branch: ${{ github.event.inputs.branch }}"
+
