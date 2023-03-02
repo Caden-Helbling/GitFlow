@@ -9,33 +9,20 @@ on:
 jobs:
   create-branches:
     runs-on: ubuntu-latest
-    
-    permissions:
-      actions: write
-      checks: write
-      contents: write
-      deployments: write
-      id-token: write
-      issues: write
-      discussions: write
-      packages: write
-      pages: write
-      pull-requests: write
-      repository-projects: write
-      security-events: write
-      statuses: write
-  
     steps:
+      - name: Prompt for number of branches
+        id: branch-count
+        run: |
+          echo ::set-output name=branch-count::$(read -p "Enter the number of branches to create: " && echo $REPLY)
       - name: Checkout code
         uses: actions/checkout@v2
         with:
           ref: main
           fetch-depth: 0
-      - name: Create production branch
-        run: git branch production
-      - name: Push production
-        run: git push origin production
-      - name: Create dev branch
-        run: git branch dev
-      - name: Push dev
-        run: git push origin dev
+      - name: Create and push branches
+        run: |
+          for i in $(seq 1 ${{ steps.branch-count.outputs.branch-count }}); do
+            branch_name=$(read -p "Enter name for branch $i: " && echo $REPLY)
+            git branch $branch_name
+            git push origin $branch_name
+          done
