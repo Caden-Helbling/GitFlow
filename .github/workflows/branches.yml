@@ -35,21 +35,13 @@ jobs:
   create-branches:
     runs-on: ubuntu-latest
     steps:
-    - name: Create branch 2
-    - run: |
-        git branch ${{ github.event.inputs.branch2 }}
-
-# jobs:
-#   create-branches:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v2
-#         with:
-#           ref: main
-#           fetch-depth: 0
-#       - name: Create branch 
-#         run: git branch "Branch: ${{ github.event.inputs.branch }}"
-#       - name: Push branch A
-#         run: git push origin "Branch: ${{ github.event.inputs.branch }}"
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Create branch 2
+        run: git branch ${{ github.event.inputs.branch2 }}
+      - name: Push branch 2
+        run: git push origin ${{ github.event.inputs.branch2 }}
 
