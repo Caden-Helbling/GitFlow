@@ -12,7 +12,7 @@ on:
         required: true
         default: 'production'
       branch4:
-        description: 'Third branch name'
+        description: 'Fourth branch name'
         required: false
         default: ''
 
@@ -52,4 +52,19 @@ jobs:
         run: git branch ${{ github.event.inputs.branch4 }}
       - name: Push branch 4
         run: git push origin ${{ github.event.inputs.branch4 }}
+      - name: Add branch protections
+        uses: octokit/request-action@v2.x
+        with:
+          route: PUT /repos/:owner/:repo/branches/${{ github.event.inputs.branch2 }}/protection
+          headers: |
+            Accept: application/vnd.github.luke-cage-preview+json
+            Authorization: ${{ secrets.TOKEN }}
+          data: |
+            {
+              "required_status_checks": {
+                "strict": true,
+                "contexts": ["ci/circleci: build"]
+              },
+              "enforce_admins": true
+            }
 
