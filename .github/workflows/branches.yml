@@ -44,4 +44,12 @@ jobs:
         run: git branch ${{ github.event.inputs.branch2 }}
       - name: Push branch 2
         run: git push origin ${{ github.event.inputs.branch2 }}
+      - name: Create branch 3
+        run: git branch ${{ github.event.inputs.branch3 }}
+      - name: Push branch 3
+        run: git push origin ${{ github.event.inputs.branch3 }}
+      - name: Create branch 4
+        run: git branch ${{ github.event.inputs.branch4 }}
+      - name: Push branch 4
+        run: git push origin ${{ github.event.inputs.branch4 }}
 
