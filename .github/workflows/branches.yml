@@ -3,20 +3,28 @@ name: Create branches
 on: 
   workflow_dispatch:
     inputs:
-      branch1:
+      branch2:
         description: 'Second branch name'     
         required: true
         default: 'dev'
-      tags:
-        description: 'Test scenario tags'  
+      branch3:
+        description: 'Third branch name'
+        required: true
+        default: 'production'
+      branch4:
+        description: 'Third branch name'
+        required: false
+        default: 'production'
+
 
 jobs:
   printInputs:
     runs-on: ubuntu-latest
     steps:
     - run: |
-        echo "Log level: ${{ github.event.inputs.logLevel }}"
-        echo "Tags: ${{ github.event.inputs.tags }}" 
+        echo "Branch 2: ${{ github.event.inputs.branch2 }}"
+        echo "Branch 3: ${{ github.event.inputs.branch3 }}"
+        echo "Branch 4: ${{ github.event.inputs.branch4 }}"
 
 
 # on:
