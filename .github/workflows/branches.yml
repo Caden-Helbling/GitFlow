@@ -16,28 +16,28 @@ on:
         required: false
         default: 'production'
 
+permissions:
+  actions: write
+  checks: write
+  contents: write
+  deployments: write
+  id-token: write
+  issues: write
+  discussions: write
+  packages: write
+  pages: write
+  pull-requests: write
+  repository-projects: write
+  security-events: write
+  statuses: write
 
 jobs:
-  printInputs:
+  create-branches:
     runs-on: ubuntu-latest
     steps:
+    - name: Create branch 2
     - run: |
-        echo "Branch 2: ${{ github.event.inputs.branch2 }}"
-        echo "Branch 3: ${{ github.event.inputs.branch3 }}"
-        echo "Branch 4: ${{ github.event.inputs.branch4 }}"
-
-
-# on:
-#   workflow_dispatch:
-#     inputs:
-#       environment:
-#         description: 'Define env name'     
-#         required: true
-#         default: 'prod'
-#       branch:
-#         description: 'Define branch name'     
-#         required: true
-#         default: 'master'
+        git branch ${{ github.event.inputs.branch2 }}
 
 # jobs:
 #   create-branches:
