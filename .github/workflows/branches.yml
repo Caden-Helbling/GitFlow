@@ -52,6 +52,9 @@ jobs:
         run: git branch ${{ github.event.inputs.branch4 }}
       - name: Push branch 4
         run: git push origin ${{ github.event.inputs.branch4 }}
+      - name: install HubFlow
+        run: cd GitFlow/
+        git hf init
       # - name: Set GITHUB_TOKEN
       #   env:
       #     GITHUB_TOKEN: ${{ secrets.TOKEN }}
