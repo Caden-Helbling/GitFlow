@@ -53,7 +53,7 @@ jobs:
       - name: Push branch 4
         run: git push origin ${{ github.event.inputs.branch4 }}
       - name: install GitFlow
-        run: apt-get install git-flow
+        run: sudo apt-get install git-flow
       # - name: Set GITHUB_TOKEN
       #   env:
       #     GITHUB_TOKEN: ${{ secrets.TOKEN }}
